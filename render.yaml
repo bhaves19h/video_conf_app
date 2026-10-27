@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: video-conferencing
+    runtime: node
+    plan: free
+    buildCommand: npm run build
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: MONGO_URI
+        sync: false        # paste your MongoDB Atlas URL in the Render dashboard
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CI
+        value: "false"     # CRA treats warnings as errors otherwise
+      - key: GENERATE_SOURCEMAP
+        value: "false"
+      - key: NODE_OPTIONS
+        value: --max-old-space-size=460
